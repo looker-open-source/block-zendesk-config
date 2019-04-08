@@ -10,13 +10,13 @@ explore: tickets {
   ## Add a filter to set a default time period to display in the Explore Window - this will make the queries run faster
   #   always_filter:
   #     tickets.created_date: 30 days
-  join: category {
-    sql_on: ${tickets.group_id} = ${category.id} ;;
+  join: groups {
+    sql_on: ${tickets.group_id} = ${groups.id} ;;
     relationship: many_to_one
   }
 
-  join: category_memberships {
-    sql_on: ${category_memberships.group_id} = ${category.id} ;;
+  join: group_memberships {
+    sql_on: ${group_memberships.group_id} = ${groups.id} ;;
     relationship: one_to_many
   }
 

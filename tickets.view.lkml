@@ -1,49 +1,4 @@
-view: organizations {
-  extends: [_organizations]
-}
-
-view: category {
-  extends: [_groups]
-}
-
-view: category_memberships {
-  extends: [_group_memberships]
-}
-
-view: users {
-  extends: [_users]
-}
-
-view: ticket_history {
-  extends: [_ticket_history]
-  ## The SQL in this dimensions should be updated to reflect whatever your business
-  ## considers and "agent touch"
-  dimension: number_of_agent_touches {
-    type: number
-    hidden: yes
-    sql: CASE
-      WHEN ${new_value} IN ('true','false','incident') THEN 1
-      ELSE 0
-      END
-
-       ;;
-  }
-
-  measure: total_agent_touches {
-    type: sum
-    sql: ${number_of_agent_touches} ;;
-  }
-
-  measure: count_unique_tickets {
-    type: count_distinct
-    sql: ${ticket_id} ;;
-  }
-
-  measure: average_agents_touches {
-    type: average
-    sql: ${number_of_agent_touches} ;;
-  }
-}
+include: "_tickets.view.lkml"
 
 view: tickets {
   extends: [_tickets]
@@ -179,7 +134,7 @@ view: tickets {
     type: yesno
     sql: POSITION('Chat started on ' IN ${description}) > 0
 
-       ;;
+             ;;
   }
 
   dimension: chat_start_time_string {
@@ -455,16 +410,3 @@ view: tickets {
     }
   }
 }
-
-### SATISFACTION FIELDS - TO BE INCLUDED ONLY IF YOUR ZENDESK APP UTILIZES SATISFACTION SCORING ###
-
-
-#   - dimension: satisfaction_rating_percent_tier
-#     type: tier
-#     tiers: [10,20,30,40,50,60,70,80,90]
-#     sql: ${satisfaction_rating}
-
-#   - measure: average_satisfaction_rating
-#     type: avg
-#     sql: ${satisfaction_rating}
-#     value_format: '#,#00.00%'
