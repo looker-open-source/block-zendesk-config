@@ -81,6 +81,12 @@ explore: organization_tag {
 }
 
 explore: ticket {
+  join: assignee {
+    from: user
+    relationship: many_to_one
+    sql_on: ${ticket.assignee_id} = ${assignee.id} ;;
+  }
+
   join: forum_topic {
     type: left_outer
     sql_on: ${ticket.forum_topic_id} = ${forum_topic.id} ;;
