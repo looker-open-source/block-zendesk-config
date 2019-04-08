@@ -7,25 +7,6 @@ view: group_member {
     sql: ${TABLE}.id ;;
   }
 
-  dimension: _fivetran_deleted {
-    type: yesno
-    sql: ${TABLE}._fivetran_deleted ;;
-  }
-
-  dimension_group: _fivetran_synced {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}._fivetran_synced ;;
-  }
-
   dimension: group_id {
     type: number
     # hidden: yes

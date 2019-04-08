@@ -7,7 +7,6 @@ view: _ticket {
     sql: ${TABLE}.id ;;
   }
 
-
   dimension: allow_channelback {
     type: yesno
     sql: ${TABLE}.allow_channelback ;;

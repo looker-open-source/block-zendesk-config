@@ -7,20 +7,6 @@ view: user {
     sql: ${TABLE}.id ;;
   }
 
-  dimension_group: _fivetran_synced {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}._fivetran_synced ;;
-  }
-
   dimension: active {
     type: yesno
     sql: ${TABLE}.active ;;

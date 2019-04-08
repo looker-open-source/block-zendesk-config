@@ -7,20 +7,6 @@ view: organization_member {
     sql: ${TABLE}.id ;;
   }
 
-  dimension_group: _fivetran_synced {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}._fivetran_synced ;;
-  }
-
   dimension: organization_id {
     type: number
     # hidden: yes

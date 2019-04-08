@@ -1,20 +1,6 @@
 view: ticket_tag_history {
   sql_table_name: zendesk.ticket_tag_history ;;
 
-  dimension_group: _fivetran_synced {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}._fivetran_synced ;;
-  }
-
   dimension: tag {
     type: string
     sql: ${TABLE}.tag ;;
