@@ -10,17 +10,17 @@
   - name: tickets_by_assignee
     title: 'Tickets by Assignee'
     type: looker_column
-    model: zendesk
-    explore: tickets
-    dimensions: [assignee.name,tickets.created_day_of_week,
-      tickets.created_date]
+    model: zendesk_analytics
+    explore: ticket
+    dimensions: [assignee.name,ticket.created_day_of_week,
+      ticket.created_date]
     pivots: [assignee.name]
-    measures: [tickets.count]
-    hidden_fields: [tickets.created_date]
+    measures: [ticket.count]
+    hidden_fields: [ticket.created_date]
     filters:
-      tickets.created_date: 7 days
-      tickets.created_day_of_week: -"Saturday",-"Sunday"
-    sorts: [tickets.created_date]
+      ticket.created_date: 7 days
+      ticket.created_day_of_week: -"Saturday",-"Sunday"
+    sorts: [ticket.created_date]
     limit: 500
     column_limit: 50
     stacking: normal
@@ -32,7 +32,7 @@
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
-    hidden_series: [tickets.count]
+    hidden_series: [ticket.count]
     y_axis_combined: true
     show_y_axis_labels: true
     show_y_axis_ticks: true
@@ -43,15 +43,15 @@
     y_axis_orientation: [left, right]
     ordering: none
     show_null_labels: false
-    
+
   - name: chat_length_by_assignee
     title: 'Chat Length by Assignee'
     type: looker_column
     model: zendesk
-    explore: tickets
+    explore: ticket
     dimensions: [assignee.name]
-    measures: [tickets.total_chat_duration_minutes, tickets.average_chat_duration_minutes,
-      tickets.count_chats]
+    measures: [ticket.total_chat_duration_minutes, tickets.average_chat_duration_minutes,
+      ticket.count_chats]
     filters:
       tickets.created_date: 7 days
     sorts: [assignee.name]
@@ -80,12 +80,12 @@
     y_axis_orientation: [left, right]
     x_axis_label_rotation: 0
     show_null_labels: false
-        
+
   - name: this_weeks_non_chats
     title: "This week's non-chats"
     type: single_value
     model: zendesk
-    explore: tickets
+    explore: ticket
     dimensions: [tickets.created_week]
     measures: [tickets.count_non_chats]
     dynamic_fields:
@@ -103,18 +103,17 @@
       value_format: ''
     - table_calculation: with_arrows
       label: with arrows
-      expression: "if(${tickets.count_non_chats} - ${average_weekly_chats}\
+      expression: "if(${ticket.count_non_chats} - ${average_weekly_chats}\
         \ > 0, \nconcat(\"⬆\", ${this_week_compared_to_average}),\nreplace(${this_week_compared_to_average},\"\
         -\",\"⬇\")\n)\n\n"
     - table_calculation: final
       label: final!
-      expression: concat(${tickets.count_non_chats}, " ",${with_arrows})
-    hidden_fields: [tickets.created_week, average_weekly_chats, this_week_compared_to_average,
-      with_arrows, tickets.count_non_chats]
+      expression: concat(${ticket.count_non_chats}, " ",${with_arrows})
+    hidden_fields: [ticket.created_week, average_weekly_chats, this_week_compared_to_average,
+      with_arrows, ticket.count_non_chats]
     filters:
       tickets.created_date: 13 weeks
-    sorts: [tickets.created_week desc]
+    sorts: [ticket.created_week desc]
     limit: 500
     font_size: fit
     text_color: black
-  
