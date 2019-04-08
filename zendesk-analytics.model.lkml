@@ -17,12 +17,21 @@ explore: ticket {
     sql_on: ${ticket.id} = ${ticket_comment.ticket_id} ;;
     relationship: one_to_many
   }
-
-  join: ticket_tag {}
-
-  join: ticket_field_history {}
-
-  join: ticket_tag_history {}
+  join: ticket_field_history {
+    type: left_outer
+    sql_on: ${ticket.id} = ${ticket_field_history.ticket_id} ;;
+    relationship: one_to_many
+  }
+  join: ticket_tag {
+    type: left_outer
+    sql_on: ${ticket.id} = ${ticket_tag.ticket_id} ;;
+    relationship: one_to_many
+  }
+  join: ticket_tag_history {
+    type: left_outer
+    sql_on: ${ticket.id} = ${ticket_tag.ticket_id} ;;
+    relationship: one_to_many
+  }
 
   join: assignee {
     from: user
@@ -34,6 +43,7 @@ explore: ticket {
     relationship: many_to_one
     sql_on: ${ticket.requester_id} = ${requester.id} ;;
   }
+
   join: organization {
     type: left_outer
     sql_on: ${ticket.organization_id} = ${organization.id} ;;
