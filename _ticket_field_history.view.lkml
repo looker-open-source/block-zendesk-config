@@ -41,4 +41,10 @@ view: ticket_field_history {
     type: count
     drill_fields: [field_name, user.id, user.custom_lead_or_contact_first_name, user.name, ticket.id]
   }
+
+  measure: max_updated_time {
+    type: date
+    sql: MAX(${updated_raw}) ;;
+    convert_tz: no
+  }
 }

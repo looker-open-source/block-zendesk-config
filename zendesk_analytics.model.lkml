@@ -34,6 +34,12 @@ explore: ticket {
     relationship: one_to_many
   }
 
+  join: ticket_close_dates {
+    type: left_outer
+    sql_on: ${ticket.id} = ${ticket_close_dates.ticket_id} ;;
+    relationship: one_to_one
+  }
+
   join: assignee {
     from: user
     relationship: many_to_one
