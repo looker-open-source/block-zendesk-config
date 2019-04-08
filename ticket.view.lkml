@@ -47,6 +47,11 @@ view: ticket {
        ;;
   }
 
+  measure: count {
+    label: "Count Tickets"
+    type: count
+  }
+
   measure: count_pending_tickets {
     type: count
 

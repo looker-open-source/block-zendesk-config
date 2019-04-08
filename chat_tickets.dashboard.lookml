@@ -47,10 +47,10 @@
   - name: chat_length_by_assignee
     title: 'Chat Length by Assignee'
     type: looker_column
-    model: zendesk
+    model: zendesk_analytics
     explore: ticket
     dimensions: [assignee.name]
-    measures: [ticket.total_chat_duration_minutes, tickets.average_chat_duration_minutes,
+    measures: [ticket.total_chat_duration_minutes, ticket.average_chat_duration_minutes,
       ticket.count_chats]
     filters:
       tickets.created_date: 7 days
@@ -84,7 +84,7 @@
   - name: this_weeks_non_chats
     title: "This week's non-chats"
     type: single_value
-    model: zendesk
+    model: zendesk_analytics
     explore: ticket
     dimensions: [tickets.created_week]
     measures: [tickets.count_non_chats]

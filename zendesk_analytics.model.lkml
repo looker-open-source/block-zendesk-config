@@ -2,7 +2,7 @@ connection: "fivetran_looker_blocks_demo"
 
 # include all the views
 include: "*.view"
-include: "*.dashboard"
+# include: "*.dashboard"
 
 datagroup: app_support_analytics_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
