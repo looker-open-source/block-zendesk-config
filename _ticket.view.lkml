@@ -1,4 +1,4 @@
-view: ticket {
+view: _ticket {
   sql_table_name: zendesk.ticket ;;
 
   dimension: id {
@@ -7,19 +7,6 @@ view: ticket {
     sql: ${TABLE}.id ;;
   }
 
-  dimension_group: _fivetran_synced {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}._fivetran_synced ;;
-  }
 
   dimension: allow_channelback {
     type: yesno
@@ -226,3 +213,18 @@ view: ticket {
     ]
   }
 }
+
+#
+# dimension_group: _fivetran_synced {
+#   type: time
+#   timeframes: [
+#     raw,
+#     time,
+#     date,
+#     week,
+#     month,
+#     quarter,
+#     year
+#   ]
+#   sql: ${TABLE}._fivetran_synced ;;
+# }
