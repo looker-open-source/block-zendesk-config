@@ -18,6 +18,7 @@ view: flat_ticket {
     explore_source: ticket {
       column: assignee {field: assignee.name }
       column: organization {field: organization.name }
+      column: type {field: ticket.type }
       column: status {field: ticket.status }
       column: priority {field: ticket.priority }
       column: tickets {field: ticket.count}
@@ -29,6 +30,10 @@ view: flat_ticket {
   }
 
   dimension: organization {
+    type: string
+  }
+
+  dimension: type {
     type: string
   }
 
