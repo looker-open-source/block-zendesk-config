@@ -37,24 +37,25 @@ view: ticket {
 
   # TODO: Define the threshold for meeting SLAs in hours
 
-  dimension: urgent_sla {sql: 12 ;;}
+  dimension: urgent_sla {sql: 6 ;;}
   dimension: high_sla {sql: 24 ;;}
   dimension: normal_sla {sql: 36 ;; }
   dimension: low_sla {sql: 48 ;;}
 
 
+# will use ${hours_to_first_response} when elliot is done with pdt
   dimension: is_meeting_sla {
     type: yesno
-    sql: CASE WHEN ${priority} = 'Urgent' and ${hours_open} >   THEN FALSE
-              WHEN ${priority} = 'High' THEN
-              WHEN ${priority} = 'Normal' THEN
-              WHEN ${priority} = 'Low' THEN
-              ELSE
+    sql: CASE WHEN ${priority} = 'Urgent' and ${hours_open} > ${urgent_sla}  THEN FALSE
+              WHEN ${priority} = 'High' and ${hours_open} > ${high_sla}  THEN FALSE
+              WHEN ${priority} = 'Normal' and ${hours_open} > ${normal_sla}  THEN FALSE
+              WHEN ${priority} = 'Low' and ${hours_open} > ${low_sla}  THEN FALSE
+              ELSE "Unknown Priority"
               END
             ;;
   }
 
-  # TODO:
+  # TODO: Define if a ticket has been escalated
   dimension: is_escalated {
     type: yesno
     sql:  ;;
@@ -160,44 +161,44 @@ view: ticket {
     sql: ${TABLE}.created_at ;;
   }
 
-  dimension: created_day_of_week {
-    case: {
-      when: {
-        sql: ${hidden_created_day_of_week_index} = 6 ;;
-        label: "Sunday"
-      }
-
-      when: {
-        sql: ${hidden_created_day_of_week_index} = 0 ;;
-        label: "Monday"
-      }
-
-      when: {
-        sql: ${hidden_created_day_of_week_index} = 1 ;;
-        label: "Tuesday"
-      }
-
-      when: {
-        sql: ${hidden_created_day_of_week_index} = 2 ;;
-        label: "Wednesday"
-      }
-
-      when: {
-        sql: ${hidden_created_day_of_week_index} = 3 ;;
-        label: "Thursday"
-      }
-
-      when: {
-        sql: ${hidden_created_day_of_week_index} = 4 ;;
-        label: "Friday"
-      }
-
-      when: {
-        sql: ${hidden_created_day_of_week_index} = 5 ;;
-        label: "Saturday"
-      }
-    }
-  }
+#   dimension: created_day_of_week {
+#     case: {
+#       when: {
+#         sql: ${hidden_created_day_of_week_index} = 6 ;;
+#         label: "Sunday"
+#       }
+#
+#       when: {
+#         sql: ${hidden_created_day_of_week_index} = 0 ;;
+#         label: "Monday"
+#       }
+#
+#       when: {
+#         sql: ${hidden_created_day_of_week_index} = 1 ;;
+#         label: "Tuesday"
+#       }
+#
+#       when: {
+#         sql: ${hidden_created_day_of_week_index} = 2 ;;
+#         label: "Wednesday"
+#       }
+#
+#       when: {
+#         sql: ${hidden_created_day_of_week_index} = 3 ;;
+#         label: "Thursday"
+#       }
+#
+#       when: {
+#         sql: ${hidden_created_day_of_week_index} = 4 ;;
+#         label: "Friday"
+#       }
+#
+#       when: {
+#         sql: ${hidden_created_day_of_week_index} = 5 ;;
+#         label: "Saturday"
+#       }
+#     }
+#   }
 
 
 }
