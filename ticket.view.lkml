@@ -21,7 +21,7 @@ view: ticket {
   dimension_group: open {
     description: "Ticket Age"
     type: duration
-    sql_end: CURRENT_DATE ;;
+    sql_end: CURRENT_TIMESTAMP ;;
     sql_start: ${created_raw} ;;
   }
 

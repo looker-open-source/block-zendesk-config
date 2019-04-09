@@ -13,7 +13,7 @@ persist_with: app_support_analytics_default_datagroup
 
 explore: ticket {
 
-  sql_always_where: ${is_deleted} IS FALSE AND ${created_raw} > TIMESTAMP('2015-10-18') AND ${created_raw} < TIMESTAMP('2017-02-28') ;;
+  sql_always_where: ${is_deleted} IS FALSE;;
 
   join: ticket_comment {
     type: left_outer
