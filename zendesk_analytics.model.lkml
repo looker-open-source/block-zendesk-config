@@ -26,12 +26,12 @@ explore: ticket {
   join: ticket_tag {
     type: left_outer
     sql_on: ${ticket.id} = ${ticket_tag.ticket_id} ;;
-    relationship: one_to_many
+    relationship: many_to_many
   }
   join: ticket_tag_history {
     type: left_outer
     sql_on: ${ticket.id} = ${ticket_tag.ticket_id} ;;
-    relationship: one_to_many
+    relationship: many_to_many
   }
 
   join: ticket_close_dates {
