@@ -4,7 +4,7 @@ view: ticket_tag {
   dimension: pk {
     hidden: yes
     primary_key: yes
-    sql: concat (${tag} , ${ticket_id}) ;;
+    sql: concat (${tag} , cast(${ticket_id} as string)) ;;
   }
 
   dimension: tag {
