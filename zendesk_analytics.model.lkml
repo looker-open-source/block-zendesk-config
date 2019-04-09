@@ -11,6 +11,40 @@ datagroup: app_support_analytics_default_datagroup {
 
 persist_with: app_support_analytics_default_datagroup
 
+explore: flat_ticket {}
+
+view: flat_ticket {
+  derived_table: {
+    explore_source: ticket {
+      column: assignee {field: assignee.name }
+      column: organization {field: organization.name }
+      column: status {field: ticket.status }
+      column: priority {field: ticket.priority }
+      column: tickets {field: ticket.count}
+    }
+  }
+
+  dimension: assignee {
+    type: string
+  }
+
+  dimension: organization {
+    type: string
+  }
+
+  dimension: status {
+    type: string
+  }
+
+  dimension: priority {
+    type: string
+  }
+
+  dimension: tickets {
+    type: number
+  }
+}
+
 explore: ticket {
 
   sql_always_where: ${is_deleted} IS FALSE;;
