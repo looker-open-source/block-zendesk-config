@@ -42,6 +42,8 @@ view: ticket_close_dates {
 
   measure: average_time_to_resolution {
     type: average
+    description: "In Hours"
     sql: ${time_to_resolution} ;;
+    value_format_name: decimal_0
   }
 }
