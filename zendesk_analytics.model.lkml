@@ -27,32 +27,26 @@ view: flat_ticket {
 
   dimension: assignee {
     type: string
-    sql: COALESCE(${TABLE}.assignee, "") ;;
   }
 
   dimension: organization {
     type: string
-    sql: COALESCE(${TABLE}.organization, "") ;;
   }
 
   dimension: type {
     type: string
-    sql: COALESCE(${TABLE}.type, "") ;;
   }
 
   dimension: status {
     type: string
-    sql: COALESCE(${TABLE}.status, "") ;;
   }
 
   dimension: priority {
     type: string
-    sql: COALESCE(${TABLE}.priority, "") ;;
   }
 
   dimension: tickets {
     type: number
-    sql: COALESCE(${TABLE}.tickets, 0) ;;
   }
 }
 
