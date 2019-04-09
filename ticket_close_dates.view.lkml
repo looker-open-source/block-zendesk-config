@@ -2,28 +2,12 @@
 view: ticket_close_dates {
   derived_table: {
     explore_source: ticket {
-      filters: {
-        field: ticket_field_history.field_name
-        value: "status"
-      }
-      filters: {
-        field: ticket_field_history.value
-        value: "closed"
-      }
-
-      column: ticket_id {
-        field: ticket.id
-      }
-      column: created_time {
-        field: ticket.created_raw
-      }
-      column: close_time {
-        field: ticket_field_history.max_updated_time
-      }
-
-      derived_column: time_to_resolution {
-        sql: TIMESTAMP_DIFF(close_time, created_time, HOUR) ;;
-      }
+      filters: {field: ticket_field_history.field_name value: "status"}
+      filters: {field: ticket_field_history.value value: "closed"}
+      column: ticket_id {field: ticket.id}
+      column: created_time {field: ticket.created_raw}
+      column: close_time {field: ticket_field_history.max_updated_time}
+      derived_column: time_to_resolution {sql: TIMESTAMP_DIFF(close_time, created_time, HOUR) ;;}
     }
   }
 
@@ -58,6 +42,8 @@ view: ticket_close_dates {
 
   measure: average_time_to_resolution {
     type: average
+    description: "In Hours"
     sql: ${time_to_resolution} ;;
+    value_format_name: decimal_0
   }
 }

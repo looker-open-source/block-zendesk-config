@@ -3,6 +3,35 @@ include: "_ticket.view"
 view: ticket {
   extends: [_ticket]
 
+  dimension: ticket_link {
+    label: "Ticket"
+    type: number
+    sql: ${TABLE}.id ;;
+    html: [<a href="https://looker.zendesk.com/agent/tickets/{{ value }}" target="_new"> {{ value }}</a>;;
+#     html: [<a href="https://{{ zendesk_domain_config._sql }}/{{ value }}">Open in Zendesk</a>] ;;
+  }
+
+
+  dimension: ticket_age {
+    description: "Ticket age in hours"
+    type: number
+    sql: datediff(hour, ${created_raw}, getdate()) ;;
+  }
+
+  dimension_group: open {
+    description: "Ticket Age"
+    type: duration
+    sql_end: CURRENT_DATE ;;
+    sql_start: ${created_raw} ;;
+  }
+
+  dimension: ticket_age_days_tier {
+    description: "Tiered ticket age in days"
+    type: tier
+    tiers: [0, 30, 60, 90]
+    style: integer
+    sql: ${days_open} ;;
+  }
 
 #### Status Flags ####
 
