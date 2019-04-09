@@ -50,6 +50,17 @@ view: flat_ticket {
   }
 }
 
+# Used exclusively to calculate user response times
+explore: agent {
+  view_name: user
+  sql_always_where: ${is_agent} IS TRUE ;;
+
+  join: ticket_comment_response_times {
+    type: left_outer
+    sql_on: ${user.id} = ${ticket_comment_response_times.responding_agent_id} ;;
+  }
+}
+
 explore: ticket {
 
   sql_always_where: ${is_deleted} IS FALSE;;
@@ -91,6 +102,18 @@ explore: ticket {
     relationship: many_to_one
     sql_on: ${ticket.requester_id} = ${requester.id} ;;
   }
+
+  join: ticket_commenter {
+    from: user
+    relationship: many_to_one
+    sql_on: ${ticket_commenter.id} = ${ticket_comment.user_id} ;;
+  }
+
+  join: ticket_comment_response_times {
+    relationship: one_to_many
+    sql_on: ${ticket_commenter.id} = ${ticket_comment_response_times.responding_agent_id} ;;
+  }
+
 
   join: organization {
     type: left_outer
