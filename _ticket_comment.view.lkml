@@ -7,6 +7,15 @@ view: ticket_comment {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: comment_author {
+    type: string
+    sql: CASE WHEN ${requester.id} = ${user_id} THEN 'Requester'
+              WHEN ${assignee.id} = ${user_id} THEN 'Assignee'
+              ELSE 'Other'
+              END
+    ;;
+  }
+
   dimension: body {
     type: string
     sql: ${TABLE}.body ;;

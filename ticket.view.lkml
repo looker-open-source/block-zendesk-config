@@ -12,16 +12,16 @@ view: ticket {
   }
 
 
-  dimension: ticket_age {
-    description: "Ticket age in hours"
-    type: number
-    sql: datediff(hour, ${created_raw}, getdate()) ;;
-  }
+#   dimension: ticket_age {
+#     description: "Ticket age in hours"
+#     type: number
+#     sql: datediff(hour, ${created_raw}, getdate()) ;;
+#   }
 
   dimension_group: open {
     description: "Ticket Age"
     type: duration
-    sql_end: CURRENT_DATE ;;
+    sql_end: CURRENT_TIMESTAMP ;;
     sql_start: ${created_raw} ;;
   }
 
@@ -34,6 +34,31 @@ view: ticket {
   }
 
 #### Status Flags ####
+
+  # TODO: Define the threshold for meeting SLAs in hours
+
+  dimension: urgent_sla {sql: 12 ;;}
+  dimension: high_sla {sql: 24 ;;}
+  dimension: normal_sla {sql: 36 ;; }
+  dimension: low_sla {sql: 48 ;;}
+
+
+  dimension: is_meeting_sla {
+    type: yesno
+    sql: CASE WHEN ${priority} = 'Urgent' and ${hours_open} >   THEN FALSE
+              WHEN ${priority} = 'High' THEN
+              WHEN ${priority} = 'Normal' THEN
+              WHEN ${priority} = 'Low' THEN
+              ELSE
+              END
+            ;;
+  }
+
+  # TODO:
+  dimension: is_escalated {
+    type: yesno
+    sql:  ;;
+  }
 
   dimension: is_hold {
     type: yesno
