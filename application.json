@@ -1,9 +1,34 @@
 {
-	"theme": {
-		"colors": {}
-	},
-	"name": "Zendesk Analytics",
-	"tables":[],
-	"navigation": {},
-	"pages": []
+  "theme": {
+    "colors": {}
+  },
+  "name": "Zendesk Analytics",
+  "tables":[],
+  "navigation": {
+    "home": {
+      "title": "Tickets",
+      "path": "",
+      "icon": "home",
+      "description": "Tickets"
+    }
+  },
+  "pages": [
+    {
+      "path": "",
+      "title": "Tickets",
+      "type": "dashboardCollection",
+      "zenFilter": true,
+      "filters": [],
+      "dashboardCollection": {
+      "default": "deal_flow",
+        "dashboards": [
+          {
+            "lookmlID": "sales_analytics::deal_flow",
+            "name": "deal_flow",
+            "permalink": "deal_flow"
+          }
+        ]
+      }
+    }
+  ]
 }
