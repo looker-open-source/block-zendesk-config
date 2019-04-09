@@ -1,6 +1,23 @@
 view: user {
   sql_table_name: zendesk.user ;;
 
+  # Comparitor Logic
+  filter: name_select {
+    type: string
+  }
+
+  dimension: name_vs_everyone {
+    type: string
+    sql:  CASE WHEN ${name} = {% parameter name_select %} THEN ${name}
+               ELSE 'Everyone Else'
+               END;;
+  }
+
+  dimension: output_name_select {
+    type: string
+    sql: {% parameter name_select %} ;;
+  }
+
   dimension: id {
     primary_key: yes
     type: number
