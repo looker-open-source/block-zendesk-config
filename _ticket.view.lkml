@@ -25,6 +25,7 @@ view: _ticket {
 
   dimension_group: created {
     type: time
+    datatype: datetime
     timeframes: [
       raw,
       time,
@@ -34,7 +35,7 @@ view: _ticket {
       quarter,
       year
     ]
-    sql: ${TABLE}.created_at ;;
+    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.created_at), INTERVAL 779 DAY)) ;;
   }
 
   dimension: custom_github_issue {
