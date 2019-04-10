@@ -7,17 +7,13 @@
     }
   },
   "name": "Zendesk Analytics",
-  "tables":[],
   "navigation": {
     "home": {
       "title": "Overview",
       "path": "",
       "icon": "home",
       "description": "Dat Chat Lyfe"
-    },
-    "sections": [
-
-    ]
+    }
   },
   "pages": [
     {
