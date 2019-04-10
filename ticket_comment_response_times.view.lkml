@@ -41,8 +41,9 @@ view: ticket_comment_response_times {
       }
     }
   }
-  dimension: created_time {
-    type: date_raw
+  dimension_group: created {
+    type: time
+    sql: ${TABLE}.created_time ;;
   }
   dimension: ticket_id {
     type: number
@@ -60,14 +61,22 @@ view: ticket_comment_response_times {
     type: yesno
   }
 
-  dimension: next_agent_response_time {
-    type: date_raw
+  dimension_group: next_agent_response {
+    type: time
+    sql: ${TABLE}.next_agent_response_time ;;
   }
 
-  dimension_group: response_time {
-    type: duration
-    sql_start: ${created_time} ;;
-    sql_end: ${next_agent_response_time} ;;
+  dimension: response_time {
+    type: number
+    sql: (((UNIX_DATE(DATE(${next_agent_response_raw})) - UNIX_DATE(DATE(${created_raw}))) + 1)
+  -((EXTRACT(WEEK FROM ${next_agent_response_raw}) - EXTRACT(WEEK FROM ${created_raw})) * 2)
+  -(CASE WHEN EXTRACT(DAYOFWEEK FROM ${created_raw}) = 1 THEN 1 ELSE 0 END)
+  -(CASE WHEN EXTRACT(DAYOFWEEK FROM ${next_agent_response_raw}) = 7 THEN 1 ELSE 0 END))*24.0
+
+  +
+
+  TIME_DIFF(TIME(${next_agent_response_raw}), TIME(${created_raw}), hour)
+  ;;
   }
 
   dimension: responding_agent_id {
@@ -77,7 +86,13 @@ view: ticket_comment_response_times {
 
   measure: average_response_time {
     type: average
-    sql: ${hours_response_time} ;;
+    sql: ${response_time} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: median_response_time {
+    type: median
+    sql: ${response_time} ;;
     value_format_name: decimal_2
   }
 }
