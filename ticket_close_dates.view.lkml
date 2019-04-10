@@ -45,8 +45,8 @@ view: ticket_close_dates {
           CONCAT(CAST(MOD(MOD(${hours_to_resolution},7*24),24) AS STRING), " Hours"));;
   }
 
-  measure: average_time_to_resolution {
-    type: average
+  measure: median_time_to_resolution {
+    type: median
     description: "In Hours"
     sql: ${hours_to_resolution} ;;
     value_format_name: decimal_0

@@ -68,14 +68,14 @@ view: ticket_comment_response_times {
 
   dimension: response_time {
     type: number
-    sql: ((UNIX_DATE(DATE(${next_agent_response_raw})) - UNIX_DATE(DATE(${created_raw}))) + 1)
+    sql: (((UNIX_DATE(DATE(${next_agent_response_raw})) - UNIX_DATE(DATE(${created_raw}))) + 1)
   -((EXTRACT(WEEK FROM ${next_agent_response_raw}) - EXTRACT(WEEK FROM ${created_raw})) * 2)
   -(CASE WHEN EXTRACT(DAYOFWEEK FROM ${created_raw}) = 1 THEN 1 ELSE 0 END)
-  -(CASE WHEN EXTRACT(DAYOFWEEK FROM ${next_agent_response_raw}) = 7 THEN 1 ELSE 0 END)
+  -(CASE WHEN EXTRACT(DAYOFWEEK FROM ${next_agent_response_raw}) = 7 THEN 1 ELSE 0 END))*24.0
 
   +
 
-  TIME_DIFF(TIME(${next_agent_response_raw}), TIME(${created_raw}), hour)/24
+  TIME_DIFF(TIME(${next_agent_response_raw}), TIME(${created_raw}), hour)
   ;;
   }
 

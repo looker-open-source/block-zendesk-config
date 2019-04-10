@@ -1,31 +1,48 @@
 {
   "theme": {
-    "colors": {}
+    "colors": {
+      "primary": "#6AA9EF",
+      "primaryDark": "#6297D1",
+      "primaryDarker": "#4E7DB0"
+    }
   },
   "name": "Zendesk Analytics",
   "tables":[],
   "navigation": {
     "home": {
-      "title": "Tickets",
+      "title": "Overview",
       "path": "",
       "icon": "home",
-      "description": "Tickets"
-    }
+      "description": "Dat Chat Lyfe"
+    },
+    "sections": [
+      {
+        "title": "Agent",
+        "key": "agent_overview",
+        "items": [
+          {
+            "title": "Agent Overview",
+            "path": "agent-overview",
+            "icon": "sales-analytics/performance"
+          }
+        ]
+      }
+    ]
   },
   "pages": [
     {
       "path": "",
-      "title": "Tickets",
+      "title": "Overview",
       "type": "dashboardCollection",
       "zenFilter": true,
       "filters": [],
       "dashboardCollection": {
-      "default": "deal_flow",
+      "default": "support_overview",
         "dashboards": [
           {
-            "lookmlID": "sales_analytics::deal_flow",
-            "name": "deal_flow",
-            "permalink": "deal_flow"
+            "lookmlID": "zendesk_analytics::support_overview",
+            "name": "support_overview",
+            "permalink": "support_overview"
           }
         ]
       }
