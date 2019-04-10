@@ -105,6 +105,11 @@ explore: ticket {
     relationship: many_to_one
     sql_on: ${ticket.assignee_id} = ${assignee.id} ;;
   }
+  join: ticket_assignee_fact {
+    type: left_outer
+    sql_on: ${ticket.assignee_id} = ${ticket_assignee_fact.assignee_id} ;;
+    relationship: many_to_one
+  }
   join: requester {
     from: user
     relationship: many_to_one
@@ -120,6 +125,11 @@ explore: ticket {
   join: ticket_comment_response_times {
     relationship: one_to_many
     sql_on: ${ticket_commenter.id} = ${ticket_comment_response_times.responding_agent_id} ;;
+  }
+
+  join: ticket_history_fact {
+    relationship: one_to_one
+    sql_on: ${ticket_history_fact.ticket_id} = ${ticket.id} ;;
   }
 
 

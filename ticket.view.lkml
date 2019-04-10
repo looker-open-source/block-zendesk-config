@@ -7,7 +7,7 @@ view: ticket {
     label: "Ticket"
     type: number
     sql: ${TABLE}.id ;;
-    html: [<a href="https://looker.zendesk.com/agent/tickets/{{ value }}" target="_new"> {{ value }}</a>;;
+    html: <a href="https://looker.zendesk.com/agent/tickets/{{ value }}" target="_new"> {{ value }}</a>;;
 #     html: [<a href="https://{{ zendesk_domain_config._sql }}/{{ value }}">Open in Zendesk</a>] ;;
   }
 
@@ -24,6 +24,63 @@ view: ticket {
     tiers: [0, 30, 60, 90]
     style: integer
     sql: ${days_open} ;;
+  }
+
+
+  dimension: days_to_solve {
+    type: number
+    sql: 1.00 * DATE_DIFF(${ticket_history_fact.solved_date}, ${created_date}, DAY) ;;
+  }
+
+  dimension: days_to_first_response {
+    type: number
+    sql: 1.00 * DATE_DIFF(${ticket_history_fact.first_response_date}, ${created_date}, DAY) ;;
+  }
+
+  dimension: minutes_to_first_response {
+    type: number
+    sql: 1.00 * DATETIME_DIFF(EXTRACT(DATETIME FROM ${ticket_history_fact.first_response_raw}), EXTRACT(DATETIME FROM ${created_raw}), MINUTE) ;;
+  }
+
+  dimension: hours_to_solve {
+    type: number
+    sql: 1.00 * DATETIME_DIFF(${ticket_history_fact.solved_raw}, ${created_raw}, HOUR) ;;
+  }
+
+  dimension: is_responded_to {
+    type: yesno
+    sql: ${minutes_to_first_response} is not null ;;
+  }
+
+  dimension_group: last_updated {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.updated_at ;;
+  }
+
+  dimension: days_since_updated {
+    type: number
+    sql: 1.00 * DATE_DIFF(CURRENT_DATE(), ${last_updated_date}, DAY)  ;;
+    html: {% if value > 60 %}
+            <div style="color: white; background-color: darkred; font-size:100%; text-align:center">{{ rendered_value }}</div>
+          {% else %}
+            <div style="color: black; background-color: yellow; font-size:100%; text-align:center">{{ rendered_value }}</div>
+          {% endif %}
+      ;;
+  }
+
+  measure: avg_days_to_solve {
+    type: average
+    sql: ${days_to_solve} ;;
+    value_format_name: decimal_2
   }
 
 #### Status Flags ####
