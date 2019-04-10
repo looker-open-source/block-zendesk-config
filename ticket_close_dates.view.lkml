@@ -7,7 +7,6 @@ view: ticket_close_dates {
       column: ticket_id {field: ticket.id}
       column: created {field: ticket.created_raw}
       column: close {field: ticket_field_history.max_updated_time}
-      derived_column: time_to_resolution {sql: TIMESTAMP_DIFF(close_time, created_time, HOUR) ;;}
     }
   }
 
@@ -27,8 +26,8 @@ view: ticket_close_dates {
 
   dimension_group: to_resolution {
     type: duration
-    sql_start: ${created_time} ;;
-    sql_end: ${close_time};;
+    sql_start: ${created_raw} ;;
+    sql_end: ${close_raw};;
   }
 
   # In Hours

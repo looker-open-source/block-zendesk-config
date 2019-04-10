@@ -64,6 +64,7 @@ explore: agent {
   join: ticket_comment_response_times {
     type: left_outer
     sql_on: ${user.id} = ${ticket_comment_response_times.responding_agent_id} ;;
+
   }
 }
 
