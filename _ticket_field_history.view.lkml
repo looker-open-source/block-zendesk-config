@@ -23,7 +23,7 @@ view: ticket_field_history {
       quarter,
       year
     ]
-    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.created_at), INTERVAL 779 DAY)) ;;
+    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.updated), INTERVAL 779 DAY)) ;;
   }
 
   dimension: user_id {
