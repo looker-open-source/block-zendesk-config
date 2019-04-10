@@ -16,17 +16,7 @@
       "description": "Dat Chat Lyfe"
     },
     "sections": [
-      {
-        "title": "Agent",
-        "key": "agent_overview",
-        "items": [
-          {
-            "title": "Agent Overview",
-            "path": "agent-overview",
-            "icon": "sales-analytics/performance"
-          }
-        ]
-      }
+
     ]
   },
   "pages": [
@@ -34,14 +24,12 @@
       "path": "",
       "title": "Overview",
       "type": "dashboardCollection",
-      "zenFilter": true,
-      "filters": [],
       "dashboardCollection": {
-      "default": "support_overview",
+        "default": "support_overview",
         "dashboards": [
           {
             "lookmlID": "zendesk_analytics::support_overview",
-            "name": "support_overview",
+            "name": "Support Overview",
             "permalink": "support_overview"
           }
         ]
