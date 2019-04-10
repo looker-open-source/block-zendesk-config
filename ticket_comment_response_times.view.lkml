@@ -75,10 +75,6 @@ view: ticket_comment_response_times {
     html: {{ value }} ;;
   }
 
-  dimension: first_response {
-    type: yesno
-  }
-
   measure: average_response_time {
     type: average
     sql: ${hours_response_time} ;;
