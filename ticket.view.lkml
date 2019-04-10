@@ -11,13 +11,6 @@ view: ticket {
 #     html: [<a href="https://{{ zendesk_domain_config._sql }}/{{ value }}">Open in Zendesk</a>] ;;
   }
 
-
-#   dimension: ticket_age {
-#     description: "Ticket age in hours"
-#     type: number
-#     sql: datediff(hour, ${created_raw}, getdate()) ;;
-#   }
-
   dimension_group: open {
     description: "Ticket Age"
     type: duration
@@ -50,7 +43,7 @@ view: ticket {
               WHEN ${priority} = 'High' and ${hours_open} > ${high_sla}  THEN FALSE
               WHEN ${priority} = 'Normal' and ${hours_open} > ${normal_sla}  THEN FALSE
               WHEN ${priority} = 'Low' and ${hours_open} > ${low_sla}  THEN FALSE
-              ELSE "Unknown Priority"
+              ELSE NULL
               END
             ;;
   }

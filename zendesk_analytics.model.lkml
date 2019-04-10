@@ -65,6 +65,7 @@ explore: agent {
     type: left_outer
     relationship: one_to_many
     sql_on: ${user.id} = ${ticket_comment_response_times.responding_agent_id} ;;
+
   }
 }
 
