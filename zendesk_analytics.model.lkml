@@ -16,6 +16,7 @@ explore: flat_ticket {}
 view: flat_ticket {
   derived_table: {
     explore_source: ticket {
+      column: date {field: ticket.created_date }
       column: assignee {field: assignee.name }
       column: organization {field: organization.name }
       column: type {field: ticket.type }
@@ -24,6 +25,11 @@ view: flat_ticket {
       column: priority {field: ticket.priority }
       column: tickets {field: ticket.count}
     }
+  }
+
+  dimension: date {
+    type: date
+    sql:${TABLE}.date ;;
   }
 
   dimension: assignee {
