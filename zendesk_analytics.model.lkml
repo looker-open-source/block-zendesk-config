@@ -19,6 +19,7 @@ view: flat_ticket {
       column: assignee {field: assignee.name }
       column: organization {field: organization.name }
       column: type {field: ticket.type }
+      column: source {field: ticket.via_channel }
       column: status {field: ticket.status }
       column: priority {field: ticket.priority }
       column: tickets {field: ticket.count}
@@ -38,6 +39,11 @@ view: flat_ticket {
   dimension: type {
     type: string
     sql: COALESCE(${TABLE}.type, "") ;;
+  }
+
+  dimension: source {
+    type: string
+    sql: COALESCE(${TABLE}.source, "") ;;
   }
 
   dimension: status {
