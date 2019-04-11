@@ -1,5 +1,5 @@
-- dashboard: agent_overview
-  title: Agent Overview
+- dashboard: agent_dashboard
+  title: Agent Dashboard
   layout: newspaper
   elements:
   - title: Weekly Ticket Burndown
@@ -57,7 +57,7 @@
     interpolation: linear
     listen:
       Assignee: assignee.name
-    row: 23
+    row: 27
     col: 8
     width: 16
     height: 8
@@ -126,7 +126,7 @@
     totals_color: "#808080"
     listen:
       Assignee: assignee.name
-    row: 31
+    row: 35
     col: 8
     width: 16
     height: 10
@@ -850,7 +850,7 @@
     hidden_fields: [assignee.output_name_select, ticket_close_dates.average_time_to_resolution,
       ticket.avg_hours_to_first_response]
     listen: {}
-    row: 16
+    row: 20
     col: 8
     width: 16
     height: 7
@@ -916,7 +916,7 @@
     hidden_fields: [assignee.output_name_select, ticket_close_dates.average_time_to_resolution,
       ticket.avg_days_to_solve]
     listen: {}
-    row: 10
+    row: 14
     col: 8
     width: 16
     height: 6
@@ -981,7 +981,7 @@
     hidden_fields: [assignee.output_name_select, ticket.count_solved_tickets]
     listen:
       Assignee: assignee.name_select
-    row: 4
+    row: 8
     col: 8
     width: 16
     height: 6
@@ -1008,33 +1008,31 @@
     col: 0
     width: 8
     height: 4
-  - name: ''
-    type: text
-    title_text: ''
-    body_text: <font color="#5A2FC2" size="8"><center>Agent Overview Dashboard</center></font>
-    row: 0
-    col: 8
-    width: 16
-    height: 4
   - title: Open Ticket Timeline
     name: Open Ticket Timeline
     model: zendesk_analytics
     explore: ticket
     type: looker_timeline
     fields: [organization.name, ticket.created_date, ticket_close_dates.timeline_close_date,
-      ticket.priority_raw]
+      ticket.prio_rank]
     filters:
       ticket.is_open: 'Yes'
-    sorts: [priority desc]
+    sorts: [ticket.prio_rank desc 0, ticket.created_date]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{table_calculation: priority, label: Priority, expression: "if(${ticket.priority_raw}=\"\
-          low\",1,\n  if(${ticket.priority_raw}=\"normal\",2,\n    if(${ticket.priority_raw}=\"\
-          high\",3,\n      if(${ticket.priority_raw}=\"urgent\",4,null))))", value_format: !!null '',
-        value_format_name: !!null '', _kind_hint: dimension, _type_hint: number}]
     color_application:
       collection_id: legacy
-      palette_id: legacy_diverging1
+      custom:
+        id: 01f2fe2e-4224-6197-4e98-ea1a07135817
+        label: Custom
+        type: continuous
+        stops:
+        - color: "#F36254"
+          offset: 0
+        - color: "#FCF758"
+          offset: 50
+        - color: "#4FBC89"
+          offset: 100
       options:
         steps: 5
         reverse: false
@@ -1043,13 +1041,34 @@
     valueFormat: yy-mmm
     showLegend: true
     series_types: {}
-    hidden_fields: [ticket.priority_raw]
+    hidden_fields: []
     listen:
       Assignee: assignee.name
     row: 23
     col: 0
     width: 8
     height: 18
+  - title: Untitled
+    name: Untitled
+    model: zendesk_analytics
+    explore: ticket
+    type: single_value
+    fields: [ticket.dash_title]
+    sorts: [ticket.dash_title]
+    limit: 500
+    custom_color_enabled: true
+    custom_color: "#6736de"
+    show_single_value_title: false
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    series_types: {}
+    listen: {}
+    row: 0
+    col: 8
+    width: 16
+    height: 4
   filters:
   - name: Assignee
     title: Assignee

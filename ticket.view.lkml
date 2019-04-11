@@ -3,6 +3,12 @@ include: "_ticket.view"
 view: ticket {
   extends: [_ticket]
 
+  dimension: dash_title {
+    type: string
+    sql: 'foo' ;;
+    html: <font color="#5A2FC2" size="8"><center>Agent Overview Dashboard</center></font> ;;
+  }
+
   dimension: priority {
     type: string
     sql: case when LOWER(${TABLE}.priority) = 'low' then '2 - Low'
@@ -30,6 +36,20 @@ view: ticket {
   dimension: priority_raw {
     type: string
     sql: ${TABLE}.priority ;;
+  }
+
+  dimension: priority_rank {
+    type: string
+    sql: case when ${priority_raw} = 'low' THEN 1
+              when ${priority_raw} = 'normal' THEN 2
+              when ${priority_raw} = 'high' THEN 3
+              when ${priority_raw} = 'urgent' THEN 4
+              else null end;;
+  }
+
+  measure: prio_rank {
+    type: max
+    sql: ${priority_rank} ;;
   }
 
   dimension: ticket_link {
