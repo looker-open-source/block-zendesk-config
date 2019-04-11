@@ -6,7 +6,7 @@ include: "*.dashboard"
 
 datagroup: app_support_analytics_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
+  max_cache_age: "2 hour"
 }
 
 persist_with: app_support_analytics_default_datagroup
@@ -82,7 +82,7 @@ explore: agent {
 }
 
 explore: ticket {
-
+  persist_for: "3 hours"
   sql_always_where: ${is_deleted} IS FALSE;;
 
   join: ticket_comment {
