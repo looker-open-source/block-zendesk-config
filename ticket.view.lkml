@@ -27,12 +27,29 @@ view: ticket {
     ;;
   }
 
+  dimension: priority_raw {
+    type: string
+    sql: ${TABLE}.priority ;;
+  }
+
   dimension: ticket_link {
-    label: "Ticket"
     type: number
     sql: ${TABLE}.id ;;
-    html: <a href="https://looker.zendesk.com/agent/tickets/{{ value }}" target="_new"> {{ value }}</a>;;
-#     html: [<a href="https://{{ zendesk_domain_config._sql }}/{{ value }}">Open in Zendesk</a>] ;;
+    html: <img src="http://www.google.com/s2/favicons?domain=www.zendesk.com" height=16 width=16> {{ value }} ;;
+    link: {
+      label: "Zendesk Ticket"
+      url: "https://{{ ticket._ZENDESK_INSTANCE_DOMAIN._value }}.zendesk.com/agent/tickets/{{ value }}"
+      icon_url: "https://d1eipm3vz40hy0.cloudfront.net/images/logos/zendesk-favicon.ico"
+    }
+    # link: {
+    #   label: "Zendesk Ticket Detail"
+    #   url: "https://{{ ticket._LOOKER_INSTANCE_DOMAIN._value }}.looker.com/dashboards/{{ ticket._ZENDESK_TICKET_DETAIL_DASHBOARD_ID._value }}?Ticket={{ value }}"
+    #   icon_url: "http://www.looker.com/favicon.ico"
+    # }
+  }
+
+  dimension: _ZENDESK_INSTANCE_DOMAIN {
+    sql:  'looker' ;;
   }
 
   dimension_group: open {
@@ -142,10 +159,10 @@ view: ticket {
 # will use ${hours_to_first_response} when elliot is done with pdt
   dimension: is_meeting_sla {
     type: yesno
-    sql: CASE WHEN ${priority} = 'Urgent' and ${hours_open} > ${urgent_sla}  THEN FALSE
-              WHEN ${priority} = 'High' and ${hours_open} > ${high_sla}  THEN FALSE
-              WHEN ${priority} = 'Normal' and ${hours_open} > ${normal_sla}  THEN FALSE
-              WHEN ${priority} = 'Low' and ${hours_open} > ${low_sla}  THEN FALSE
+    sql: CASE WHEN ${priority} = 'Urgent' and ${hours_to_first_response} > ${urgent_sla}  THEN FALSE
+              WHEN ${priority} = 'High' and ${hours_to_first_response} > ${high_sla}  THEN FALSE
+              WHEN ${priority} = 'Normal' and ${hours_to_first_response} > ${normal_sla}  THEN FALSE
+              WHEN ${priority} = 'Low' and ${hours_to_first_response} > ${low_sla}  THEN FALSE
               ELSE NULL
               END
             ;;
@@ -205,7 +222,7 @@ measure: count {
 
 measure: count_pending_tickets {
   type: count
-
+  label: "Pending"
   filters: {
     field: is_pending
     value: "Yes"
@@ -223,7 +240,7 @@ measure: count_new_tickets {
 
 measure: count_tickets_on_hold {
   type: count
-
+  label: "Hold"
   filters: {
     field: is_new
     value: "Yes"
@@ -232,7 +249,7 @@ measure: count_tickets_on_hold {
 
 measure: count_open_tickets {
   type: count
-
+  label: "Open"
   filters: {
     field: is_open
     value: "Yes"
@@ -241,7 +258,7 @@ measure: count_open_tickets {
 
 measure: count_solved_tickets {
   type: count
-
+  label: "Solved"
   filters: {
     field: is_solved
     value: "Yes"
