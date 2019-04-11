@@ -24,6 +24,7 @@ view: flat_ticket {
       column: status {field: ticket.status }
       column: priority {field: ticket.priority }
       column: tickets {field: ticket.count}
+      filters: {field: ticket.created_date value: "30 days"}
     }
   }
 
