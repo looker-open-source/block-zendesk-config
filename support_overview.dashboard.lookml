@@ -2,48 +2,6 @@
   title: Support Overview
   layout: newspaper
   elements:
-  - title: Median Response Time
-    name: Median Response Time
-    model: zendesk_analytics
-    explore: agent
-    type: single_value
-    fields: [ticket_comment_response_times.median_response_time]
-    limit: 500
-    column_limit: 50
-    dynamic_fields: [{table_calculation: calculation_1, label: Calculation 1, expression: 'concat(to_string(round(${ticket_comment_response_times.median_response_time},2)),"
-          Hours")', value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
-        _type_hint: string}]
-    custom_color_enabled: true
-    custom_color: ''
-    show_single_value_title: true
-    single_value_title: ''
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    series_types: {}
-    hidden_fields: [ticket_comment_response_times.median_response_time]
-    listen: {}
-    row: 0
-    col: 12
-    width: 6
-    height: 4
-  - title: Median Time to Resolution
-    name: Median Time to Resolution
-    model: zendesk_analytics
-    explore: ticket
-    type: single_value
-    fields: [ticket_close_dates.median_time_to_resolution]
-    limit: 500
-    dynamic_fields: [{table_calculation: present, label: Present, expression: 'concat(to_string(${ticket_close_dates.median_time_to_resolution}),
-          " Hours")', value_format: !!null '', value_format_name: !!null '', _kind_hint: measure,
-        _type_hint: string}]
-    query_timezone: America/Los_Angeles
-    hidden_fields: [ticket_close_dates.median_time_to_resolution]
-    row: 0
-    col: 18
-    width: 6
-    height: 4
   - title: Daily Activity for the last 30 days
     name: Daily Activity for the last 30 days
     model: zendesk_analytics
@@ -99,75 +57,6 @@
     col: 0
     width: 12
     height: 12
-  - title: Tickets by Group
-    name: Tickets by Group
-    model: zendesk_analytics
-    explore: ticket
-    type: looker_pie
-    fields: [ticket.count, group.name]
-    filters:
-      group.name: "-EMPTY"
-    sorts: [group.name]
-    limit: 500
-    column_limit: 50
-    value_labels: legend
-    label_type: labPer
-    inner_radius: 60
-    color_application:
-      collection_id: 1297ec12-86a5-4ae0-9dfc-82de70b3806a
-      custom:
-        id: afa91170-d05d-2031-a3a4-b3b804195cef
-        label: Custom
-        type: discrete
-        colors:
-        - "#7CC8FA"
-        - "#ACE9F5"
-        - "#C8A7F9"
-        - "#9E7FD0"
-        - "#f56776"
-        - "#FD9577"
-        - "#FDEC85"
-        - "#AEC8C1"
-        - "#F29ED2"
-      options:
-        steps: 5
-    series_colors: {}
-    series_types: {}
-    row: 10
-    col: 0
-    width: 7
-    height: 6
-  - title: Tickets by Channel
-    name: Tickets by Channel
-    model: zendesk_analytics
-    explore: ticket
-    type: looker_pie
-    fields: [ticket.via_channel, ticket.count]
-    sorts: [ticket.count desc]
-    limit: 500
-    column_limit: 50
-    value_labels: legend
-    label_type: labPer
-    inner_radius: 60
-    color_application:
-      collection_id: 1297ec12-86a5-4ae0-9dfc-82de70b3806a
-      custom:
-        id: 3a9ebf3e-4723-159c-079e-42f4d2a0e924
-        label: Custom
-        type: discrete
-        colors:
-        - "#f56776"
-        - "#FD9577"
-        - "#FDEC85"
-        - "#F29ED2"
-      options:
-        steps: 5
-    series_colors: {}
-    series_types: {}
-    row: 4
-    col: 0
-    width: 7
-    height: 6
   - title: Ticket Distribution
     name: Ticket Distribution
     model: zendesk_analytics
@@ -299,32 +188,8 @@
     col: 7
     width: 17
     height: 12
-  - title: Solved Tickets (This Week)
-    name: Solved Tickets (This Week)
-    model: zendesk_analytics
-    explore: ticket
-    type: single_value_sparkline
-    fields: [ticket.count_solved_tickets, ticket_close_dates.close_month]
-    fill_fields: [ticket_close_dates.close_month]
-    filters:
-      ticket_close_dates.close_month: 8 months
-    sorts: [ticket_close_dates.close_month desc]
-    limit: 500
-    query_timezone: America/Los_Angeles
-    font_size: small
-    sparkline_color: ["#f56776"]
-    chart_alignment: bottom
-    data_granularity: '1'
-    sparkline_width: '100'
-    sparkline_height: '50'
-    width: 6
-    height: 4
-    series_types: {}
-    listen: {}
-    row: 0
-    col: 0
-  - title: Open Tickets (This Week)
-    name: Open Tickets (This Week)
+  - title: Open Tickets
+    name: Open Tickets
     model: zendesk_analytics
     explore: ticket
     type: single_value_sparkline
@@ -347,3 +212,156 @@
     listen: {}
     row: 0
     col: 6
+  - title: Solved Tickets
+    name: Solved Tickets
+    model: zendesk_analytics
+    explore: ticket
+    type: single_value_sparkline
+    fields: [ticket.count_solved_tickets, ticket_close_dates.close_month]
+    fill_fields: [ticket_close_dates.close_month]
+    filters:
+      ticket_close_dates.close_month: 8 months
+    sorts: [ticket_close_dates.close_month desc]
+    limit: 500
+    query_timezone: America/Los_Angeles
+    font_size: small
+    sparkline_color: ["#f56776"]
+    chart_alignment: bottom
+    data_granularity: '1'
+    sparkline_width: '100'
+    sparkline_height: '50'
+    width: 6
+    height: 4
+    series_types: {}
+    listen: {}
+    row: 0
+    col: 0
+  - title: Tickets by Group
+    name: Tickets by Group
+    model: zendesk_analytics
+    explore: ticket
+    type: looker_pie
+    fields: [ticket.count, group.name]
+    filters:
+      group.name: "-EMPTY"
+    sorts: [group.name]
+    limit: 500
+    column_limit: 50
+    value_labels: legend
+    label_type: labPer
+    inner_radius: 60
+    color_application:
+      collection_id: 1297ec12-86a5-4ae0-9dfc-82de70b3806a
+      custom:
+        id: afa91170-d05d-2031-a3a4-b3b804195cef
+        label: Custom
+        type: discrete
+        colors:
+        - "#7CC8FA"
+        - "#ACE9F5"
+        - "#C8A7F9"
+        - "#9E7FD0"
+        - "#f56776"
+        - "#FD9577"
+        - "#FDEC85"
+        - "#AEC8C1"
+        - "#F29ED2"
+      options:
+        steps: 5
+    series_colors: {}
+    series_types: {}
+    listen: {}
+    row: 10
+    col: 0
+    width: 7
+    height: 6
+  - title: Tickets by Channel
+    name: Tickets by Channel
+    model: zendesk_analytics
+    explore: ticket
+    type: looker_pie
+    fields: [ticket.via_channel, ticket.count]
+    sorts: [ticket.count desc]
+    limit: 500
+    column_limit: 50
+    value_labels: legend
+    label_type: labPer
+    inner_radius: 60
+    color_application:
+      collection_id: 1297ec12-86a5-4ae0-9dfc-82de70b3806a
+      custom:
+        id: 3a9ebf3e-4723-159c-079e-42f4d2a0e924
+        label: Custom
+        type: discrete
+        colors:
+        - "#f56776"
+        - "#FD9577"
+        - "#FDEC85"
+        - "#F29ED2"
+      options:
+        steps: 5
+    series_colors: {}
+    series_types: {}
+    listen: {}
+    row: 4
+    col: 0
+    width: 7
+    height: 6
+  - title: Median Response Time in Hours
+    name: Median Response Time in Hours
+    model: zendesk_analytics
+    explore: agent
+    type: single_value_sparkline
+    fields: [ticket_comment_response_times.median_response_time, ticket_comment_response_times.created_month]
+    fill_fields: [ticket_comment_response_times.created_month]
+    filters:
+      ticket_comment_response_times.created_month: 8 months
+    sorts: [ticket_comment_response_times.created_month desc]
+    limit: 500
+    column_limit: 50
+    font_size: small
+    sparkline_color: ["#f56776"]
+    chart_alignment: bottom
+    data_granularity: '1'
+    sparkline_width: '100'
+    sparkline_height: '50'
+    custom_color_enabled: true
+    custom_color: ''
+    show_single_value_title: true
+    single_value_title: ''
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    series_types: {}
+    hidden_fields:
+    listen: {}
+    row: 0
+    col: 12
+    width: 6
+    height: 4
+  - title: Median Time to Resolution in Hours
+    name: Median Time to Resolution in Hours
+    model: zendesk_analytics
+    explore: ticket
+    type: single_value_sparkline
+    fields: [ticket_close_dates.median_time_to_resolution, ticket_close_dates.created_month]
+    fill_fields: [ticket_close_dates.created_month]
+    filters:
+      ticket_close_dates.created_month: 8 months
+    sorts: [ticket_close_dates.created_month desc]
+    limit: 500
+    query_timezone: America/Los_Angeles
+    font_size: small
+    sparkline_color: ["#f56776"]
+    chart_alignment: bottom
+    data_granularity: '1'
+    sparkline_width: '100'
+    sparkline_height: '50'
+    hidden_fields:
+    series_types: {}
+    listen: {}
+    row: 0
+    col: 18
+    width: 6
+    height: 4
