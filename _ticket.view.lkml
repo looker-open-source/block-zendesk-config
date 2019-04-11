@@ -33,7 +33,10 @@ view: _ticket {
       week,
       month,
       quarter,
-      year
+      year,
+      hour_of_day,
+      day_of_week,
+      month_name
     ]
     sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.created_at), INTERVAL 779 DAY)) ;;
   }

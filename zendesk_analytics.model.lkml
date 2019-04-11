@@ -2,7 +2,7 @@ connection: "fivetran_looker_blocks_demo"
 
 # include all the views
 include: "*.view"
-# include: "*.dashboard"
+include: "*.dashboard"
 
 datagroup: app_support_analytics_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -62,6 +62,19 @@ view: flat_ticket {
   }
 }
 
+# Used exclusively to calculate user response times
+explore: agent {
+  view_name: user
+  sql_always_where: ${is_agent} IS TRUE ;;
+
+  join: ticket_comment_response_times {
+    type: left_outer
+    relationship: one_to_many
+    sql_on: ${user.id} = ${ticket_comment_response_times.responding_agent_id} ;;
+
+  }
+}
+
 explore: ticket {
 
   sql_always_where: ${is_deleted} IS FALSE;;
@@ -98,11 +111,33 @@ explore: ticket {
     relationship: many_to_one
     sql_on: ${ticket.assignee_id} = ${assignee.id} ;;
   }
+  join: ticket_assignee_fact {
+    type: left_outer
+    sql_on: ${ticket.assignee_id} = ${ticket_assignee_fact.assignee_id} ;;
+    relationship: many_to_one
+  }
   join: requester {
     from: user
     relationship: many_to_one
     sql_on: ${ticket.requester_id} = ${requester.id} ;;
   }
+
+  join: ticket_commenter {
+    from: user
+    relationship: many_to_one
+    sql_on: ${ticket_commenter.id} = ${ticket_comment.user_id} ;;
+  }
+
+  join: ticket_comment_response_times {
+    relationship: one_to_many
+    sql_on: ${ticket_commenter.id} = ${ticket_comment_response_times.responding_agent_id} ;;
+  }
+
+  join: ticket_history_fact {
+    relationship: one_to_one
+    sql_on: ${ticket_history_fact.ticket_id} = ${ticket.id} ;;
+  }
+
 
   join: organization {
     type: left_outer

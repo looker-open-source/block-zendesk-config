@@ -101,7 +101,9 @@ view: organization {
       group.id,
       organization_member.count,
       organization_tag.count,
-      ticket.count,
+      ticket.ticket_link,
+      ticket.priority,
+      ticket.status,
       user.count
     ]
   }
