@@ -1,5 +1,5 @@
-- dashboard: agent_dashboard
-  title: Agent Dashboard
+- dashboard: agent_overview
+  title: Agent Overview
   layout: newspaper
   elements:
   - title: Weekly Ticket Burndown
