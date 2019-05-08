@@ -6,7 +6,7 @@ view: ticket {
   dimension: dash_title {
     type: string
     sql: 'foo' ;;
-    html: <font color="#5A2FC2" size="8"><center>Leaderboards</center></font> ;;
+    html: <font size="8"><center>Leaderboards</center></font> ;;
   }
 
   dimension: priority {
