@@ -1,5 +1,5 @@
 view: ticket_comment {
-  sql_table_name: zendesk.ticket_comment ;;
+  sql_table_name: @{SCHEMA_NAME}.ticket_comment ;;
 
   dimension: id {
     primary_key: yes

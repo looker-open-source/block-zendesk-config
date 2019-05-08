@@ -1,5 +1,5 @@
 view: brand {
-  sql_table_name: zendesk.brand ;;
+  sql_table_name: @{SCHEMA_NAME}.brand ;;
 
   dimension: id {
     primary_key: yes

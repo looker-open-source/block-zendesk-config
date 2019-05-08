@@ -1,5 +1,5 @@
 view: ticket_field_history {
-  sql_table_name: zendesk.ticket_field_history ;;
+  sql_table_name: @{SCHEMA_NAME}.ticket_field_history ;;
 
   dimension: field_name {
     type: string

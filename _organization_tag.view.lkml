@@ -1,5 +1,5 @@
 view: organization_tag {
-  sql_table_name: zendesk.organization_tag ;;
+  sql_table_name: @{SCHEMA_NAME}.organization_tag ;;
 
   dimension: organization_id {
     type: number

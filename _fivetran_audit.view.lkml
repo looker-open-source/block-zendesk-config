@@ -1,5 +1,5 @@
 view: fivetran_audit {
-  sql_table_name: zendesk.fivetran_audit ;;
+  sql_table_name: @{SCHEMA_NAME}.fivetran_audit ;;
 
   dimension: id {
     primary_key: yes

@@ -8,7 +8,7 @@ view: ticket_assignee_fact {
         , min(created_at) as first_ticket
         , max(created_at) as latest_ticket
         , 1.0 * COUNT(*) / NULLIF(DATE_DIFF(CURRENT_DATE, MIN(EXTRACT(date from created_at)), day), 0) AS avg_tickets_per_day
-      FROM zendesk.ticket
+      FROM ${ticket.SQL_TABLE_NAME}
       GROUP BY 1
        ;;
   }

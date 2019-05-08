@@ -1,5 +1,5 @@
 view: ticket_tag {
-  sql_table_name: zendesk.ticket_tag ;;
+  sql_table_name: @{SCHEMA_NAME}.ticket_tag ;;
 
   dimension: pk {
     hidden: yes

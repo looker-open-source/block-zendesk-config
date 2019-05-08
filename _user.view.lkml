@@ -1,5 +1,5 @@
 view: _user {
-  sql_table_name: zendesk.user ;;
+  sql_table_name: @{SCHEMA_NAME}.user ;;
 
   # Comparitor Logic
   filter: name_select {

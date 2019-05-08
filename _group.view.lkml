@@ -1,5 +1,5 @@
 view: group {
-  sql_table_name: zendesk.`group` ;;
+  sql_table_name: @{SCHEMA_NAME}.`group` ;;
 
   dimension: id {
     primary_key: yes

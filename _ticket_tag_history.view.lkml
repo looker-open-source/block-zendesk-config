@@ -1,5 +1,5 @@
 view: ticket_tag_history {
-  sql_table_name: zendesk.ticket_tag_history ;;
+  sql_table_name: @{SCHEMA_NAME}.ticket_tag_history ;;
 
   dimension: tag {
     type: string

@@ -1,5 +1,5 @@
 view: forum_topic {
-  sql_table_name: zendesk.forum_topic ;;
+  sql_table_name: @{SCHEMA_NAME}.forum_topic ;;
 
   dimension: id {
     primary_key: yes

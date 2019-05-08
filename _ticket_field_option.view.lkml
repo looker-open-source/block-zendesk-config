@@ -1,5 +1,5 @@
 view: ticket_field_option {
-  sql_table_name: zendesk.ticket_field_option ;;
+  sql_table_name: @{SCHEMA_NAME}.ticket_field_option ;;
 
   dimension: default {
     type: yesno
