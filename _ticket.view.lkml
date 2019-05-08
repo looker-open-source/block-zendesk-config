@@ -38,7 +38,7 @@ view: _ticket {
       day_of_week,
       month_name
     ]
-    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.created_at), INTERVAL 779 DAY)) ;;
+    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.created_at), INTERVAL 810 DAY)) ;;
   }
 
   dimension: custom_github_issue {

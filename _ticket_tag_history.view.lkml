@@ -17,6 +17,7 @@ view: ticket_tag_history {
     sql: ${TABLE}.ticket_id ;;
   }
 
+  # Things are dateshifted for dev purposes, but this should NOT be dateshifted (shoudl just be ${TABLE}.created_at
   dimension_group: updated {
     type: time
     timeframes: [
@@ -28,7 +29,7 @@ view: ticket_tag_history {
       quarter,
       year
     ]
-    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.created_at), INTERVAL 779 DAY)) ;;
+    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.created_at), INTERVAL 810 DAY)) ;;
   }
 
   dimension: user_id {

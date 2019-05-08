@@ -34,7 +34,7 @@ view: ticket_history_fact {
       quarter,
       year
     ]
-    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.first_response), INTERVAL 779 DAY)) ;;
+    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.first_response), INTERVAL 810 DAY)) ;;
   }
 
   dimension: ticket_id {
@@ -55,7 +55,7 @@ view: ticket_history_fact {
       quarter,
       year
     ]
-    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.last_updated_status), INTERVAL 779 DAY)) ;;
+    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.last_updated_status), INTERVAL 810 DAY)) ;;
   }
 
   dimension_group: updated {
@@ -69,7 +69,7 @@ view: ticket_history_fact {
       quarter,
       year
     ]
-    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.updated), INTERVAL 779 DAY)) ;;
+    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.updated), INTERVAL 810 DAY)) ;;
     hidden: yes
     # why is this not = to the field on ticket on some occasions? should be redundant.
   }
@@ -85,7 +85,7 @@ view: ticket_history_fact {
       quarter,
       year
     ]
-    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.last_updated_by_assignee), INTERVAL 779 DAY)) ;;
+    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.last_updated_by_assignee), INTERVAL 810 DAY)) ;;
   }
 
   dimension_group: last_updated_by_requester {
@@ -99,7 +99,7 @@ view: ticket_history_fact {
       quarter,
       year
     ]
-    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.last_updated_by_assignee), INTERVAL 779 DAY)) ;;
+    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.last_updated_by_assignee), INTERVAL 810 DAY)) ;;
   }
 
   dimension_group: solved {
@@ -113,7 +113,7 @@ view: ticket_history_fact {
       quarter,
       year
     ]
-    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.solved), INTERVAL 779 DAY)) ;;
+    sql: TIMESTAMP(DATETIME_ADD(DATETIME(${TABLE}.solved), INTERVAL 810 DAY)) ;;
   }
 
   dimension_group: initially_assigned {

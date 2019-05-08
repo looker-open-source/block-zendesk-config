@@ -168,31 +168,31 @@ view: ticket {
 
 #### Status Flags ####
 
-  # TODO: Define the threshold for meeting SLAs in hours
+#   # TODO: Define the threshold for meeting SLAs in hours
+#
+#   dimension: urgent_sla {sql: 6 ;;}
+#   dimension: high_sla {sql: 24 ;;}
+#   dimension: normal_sla {sql: 36 ;; }
+#   dimension: low_sla {sql: 48 ;;}
+#
+#
+# # will use ${hours_to_first_response} when elliot is done with pdt
+#   dimension: is_meeting_sla {
+#     type: yesno
+#     sql: CASE WHEN ${priority} = 'Urgent' and ${hours_to_first_response} > ${urgent_sla}  THEN FALSE
+#               WHEN ${priority} = 'High' and ${hours_to_first_response} > ${high_sla}  THEN FALSE
+#               WHEN ${priority} = 'Normal' and ${hours_to_first_response} > ${normal_sla}  THEN FALSE
+#               WHEN ${priority} = 'Low' and ${hours_to_first_response} > ${low_sla}  THEN FALSE
+#               ELSE NULL
+#               END
+#             ;;
+#   }
 
-  dimension: urgent_sla {sql: 6 ;;}
-  dimension: high_sla {sql: 24 ;;}
-  dimension: normal_sla {sql: 36 ;; }
-  dimension: low_sla {sql: 48 ;;}
-
-
-# will use ${hours_to_first_response} when elliot is done with pdt
-  dimension: is_meeting_sla {
-    type: yesno
-    sql: CASE WHEN ${priority} = 'Urgent' and ${hours_to_first_response} > ${urgent_sla}  THEN FALSE
-              WHEN ${priority} = 'High' and ${hours_to_first_response} > ${high_sla}  THEN FALSE
-              WHEN ${priority} = 'Normal' and ${hours_to_first_response} > ${normal_sla}  THEN FALSE
-              WHEN ${priority} = 'Low' and ${hours_to_first_response} > ${low_sla}  THEN FALSE
-              ELSE NULL
-              END
-            ;;
-  }
-
-  # TODO: Define if a ticket has been escalated
-  dimension: is_escalated {
-    type: yesno
-    sql:  ;;
-}
+#   # TODO: Define if a ticket has been escalated
+#   dimension: is_escalated {
+#     type: yesno
+#     sql:  ;;
+# }
 
 dimension: is_hold {
   type: yesno
