@@ -1,3 +1,4 @@
+# Quick facts about each ticket
 view: ticket_history_fact {
   view_label: "Ticket"
   derived_table: {

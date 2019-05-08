@@ -66,17 +66,16 @@ view: ticket_comment_response_times {
     sql: ${TABLE}.next_agent_response_time ;;
   }
 
+  # Needs refactoring, for now, we'll use the straight difference in timestamps
   dimension: response_time {
+    label: "In Hours (includes weekends by default)"
     type: number
-    sql: (((UNIX_DATE(DATE(${next_agent_response_raw})) - UNIX_DATE(DATE(${created_raw}))) + 1)
-  -((EXTRACT(WEEK FROM ${next_agent_response_raw}) - EXTRACT(WEEK FROM ${created_raw})) * 2)
-  -(CASE WHEN EXTRACT(DAYOFWEEK FROM ${created_raw}) = 1 THEN 1 ELSE 0 END)
-  -(CASE WHEN EXTRACT(DAYOFWEEK FROM ${next_agent_response_raw}) = 7 THEN 1 ELSE 0 END))*24.0
-
-  +
-
-  TIME_DIFF(TIME(${next_agent_response_raw}), TIME(${created_raw}), hour)
-  ;;
+    sql: TIMESTAMP_DIFF(${next_agent_response_raw}, ${created_raw}, hour) ;;
+  #   sql: (((UNIX_DATE(DATE(${next_agent_response_raw})) - UNIX_DATE(DATE(${created_raw}))) + 1)
+  # -((EXTRACT(WEEK FROM ${next_agent_response_raw}) - EXTRACT(WEEK FROM ${created_raw})) * 2)
+  # -(CASE WHEN EXTRACT(DAYOFWEEK FROM ${created_raw}) = 1 THEN 1 ELSE 0 END)*24.0
+  # -(CASE WHEN EXTRACT(DAYOFWEEK FROM ${next_agent_response_raw}) = 7 THEN 1 ELSE 0 END))*24.0
+  # +TIMESTAMP_DIFF(TIME${next_agent_response_raw}), TIME(${created_raw}), hour) ;;
   }
 
   dimension: responding_agent_id {

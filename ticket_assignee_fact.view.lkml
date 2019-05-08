@@ -1,3 +1,4 @@
+# Quick facts about each ticket assignee/support agent
 view: ticket_assignee_fact {
   view_label: "Assignee"
   derived_table: {

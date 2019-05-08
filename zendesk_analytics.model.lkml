@@ -11,64 +11,6 @@ datagroup: app_support_analytics_default_datagroup {
 
 persist_with: app_support_analytics_default_datagroup
 
-explore: flat_ticket {}
-
-view: flat_ticket {
-  derived_table: {
-    explore_source: ticket {
-      column: date {field: ticket.created_date }
-      column: assignee {field: assignee.name }
-      column: organization {field: organization.name }
-      column: type {field: ticket.type }
-      column: source {field: ticket.via_channel }
-      column: status {field: ticket.status }
-      column: priority {field: ticket.priority }
-      column: tickets {field: ticket.count}
-      filters: {field: ticket.created_date value: "30 days"}
-    }
-  }
-
-  dimension: date {
-    type: date
-    sql:${TABLE}.date ;;
-  }
-
-  dimension: assignee {
-    type: string
-    sql: COALESCE(${TABLE}.assignee, "") ;;
-  }
-
-  dimension: organization {
-    type: string
-    sql: COALESCE(${TABLE}.organization, "") ;;
-  }
-
-  dimension: type {
-    type: string
-    sql: COALESCE(${TABLE}.type, "") ;;
-  }
-
-  dimension: source {
-    type: string
-    sql: COALESCE(${TABLE}.source, "") ;;
-  }
-
-  dimension: status {
-    type: string
-    sql: COALESCE(${TABLE}.status, "") ;;
-  }
-
-  dimension: priority {
-    type: string
-    sql: COALESCE(${TABLE}.priority, "") ;;
-  }
-
-  dimension: tickets {
-    type: number
-    sql: COALESCE(${TABLE}.tickets, 0) ;;
-  }
-}
-
 # Used exclusively to calculate user response times
 explore: agent {
   view_name: user
@@ -185,6 +127,66 @@ explore: ticket {
 }
 ########################################################################################################################
 ########################################################################################################################
+
+# explore: flat_ticket {}
+
+# view: flat_ticket {
+#   derived_table: {
+#     explore_source: ticket {
+#       column: date {field: ticket.created_date }
+#       column: assignee {field: assignee.name }
+#       column: organization {field: organization.name }
+#       column: type {field: ticket.type }
+#       column: source {field: ticket.via_channel }
+#       column: status {field: ticket.status }
+#       column: priority {field: ticket.priority }
+#       column: tickets {field: ticket.count}
+#       filters: {field: ticket.created_date value: "30 days"}
+#     }
+#   }
+
+#   dimension: date {
+#     type: date
+#     sql:${TABLE}.date ;;
+#   }
+
+#   dimension: assignee {
+#     type: string
+#     sql: COALESCE(${TABLE}.assignee, "") ;;
+#   }
+
+#   dimension: organization {
+#     type: string
+#     sql: COALESCE(${TABLE}.organization, "") ;;
+#   }
+
+#   dimension: type {
+#     type: string
+#     sql: COALESCE(${TABLE}.type, "") ;;
+#   }
+
+#   dimension: source {
+#     type: string
+#     sql: COALESCE(${TABLE}.source, "") ;;
+#   }
+
+#   dimension: status {
+#     type: string
+#     sql: COALESCE(${TABLE}.status, "") ;;
+#   }
+
+#   dimension: priority {
+#     type: string
+#     sql: COALESCE(${TABLE}.priority, "") ;;
+#   }
+
+#   dimension: tickets {
+#     type: number
+#     sql: COALESCE(${TABLE}.tickets, 0) ;;
+#   }
+# }
+
+
 
 #
 # explore: brand {}
