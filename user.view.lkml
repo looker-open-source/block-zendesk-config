@@ -5,12 +5,19 @@ view: user {
   derived_table: {
     sql: SELECT * FROM zendesk.user ;;
   }
+
+  #TODO: Define what it means for a user to be support agent
   dimension: is_agent {
     type: yesno
-    sql: ${id} IN (418155650,794385300,1134334407,1178141988,3205490828,3248387357,3546805988,5645036168, 7566147747, 9899556348, 12851260247, 13896009768,17068001387,17344482987)   ;;
-#     sql: ${role} IN ('Agent','Admin')  ;;
+    sql: ${organization_id} = 27173710 ;;
+    # sql: ${id} IN (418155650,794385300,1134334407,1178141988,3205490828,3248387357,3546805988,5645036168, 7566147747, 9899556348, 12851260247, 13896009768,17068001387,17344482987)   ;;
+    # sql: ${role} IN ('Agent','Admin')  ;;
   }
 }
+
+
+
+
 
 # Potenially more robust solution
 #
