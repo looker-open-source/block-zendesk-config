@@ -7,12 +7,12 @@ include: "//block-zendesk/*.view"
 include: "//block-zendesk/*.dashboard"
 include: "//block-zendesk/*.explore"
 
-datagroup: app_support_analytics_default_datagroup {
+datagroup: block_zendesk_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "2 hour"
 }
 
-persist_with: app_support_analytics_default_datagroup
+persist_with: block_zendesk_datagroup
 
 # Used exclusively to calculate user response times
 explore: agent {
