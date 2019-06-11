@@ -44,4 +44,17 @@ view: ticket {
         END
          ;;
   }
+
+  dimension: _LOOKER_INSTANCE_DOMAIN {
+    type: string
+    hidden: yes
+    sql: @{LOOKER_INSTANCE_DOMAIN} ;;
+  }
+
+  dimension: _ZENDESK_INSTANCE_DOMAIN {
+    type: string
+    hidden: yes
+    sql: @{ZENDESK_INSTANCE_DOMAIN} ;;
+  }
+
 }
