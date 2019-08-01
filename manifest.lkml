@@ -10,11 +10,11 @@ constant: SCHEMA_NAME {
 
 # TODO: Insert the name of your zendesk instance below (i.e. if your zendesk instance url is mycompany.zendesk.com, insert "'mycompany'")
 constant: ZENDESK_INSTANCE_DOMAIN {
-  value: "'INSERT HERE'"
+  value: "insert here"
 }
 
 constant: LOOKER_INSTANCE_DOMAIN {
-  value: "'INSERT HERE'"
+  value: "insert here"
 }
 
 local_dependency: {
