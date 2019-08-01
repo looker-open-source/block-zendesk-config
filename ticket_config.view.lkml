@@ -1,7 +1,8 @@
-include: "//block-zendesk/ticket_core.view"
 
-view: ticket {
+
+view: ticket_config {
   extends: [ticket_core]
+  extension: required
 
   # Customize: Configure your ticket priority settings
   dimension: priority {
