@@ -1,7 +1,8 @@
-include: "//block-zendesk/ticket_core.view"
 
-view: ticket {
+
+view: ticket_config {
   extends: [ticket_core]
+  extension: required
 
   # Customize: Configure your ticket priority settings
   dimension: priority {
@@ -44,17 +45,4 @@ view: ticket {
         END
          ;;
   }
-
-  dimension: _LOOKER_INSTANCE_DOMAIN {
-    type: string
-    hidden: yes
-    sql: @{LOOKER_INSTANCE_DOMAIN} ;;
-  }
-
-  dimension: _ZENDESK_INSTANCE_DOMAIN {
-    type: string
-    hidden: yes
-    sql: @{ZENDESK_INSTANCE_DOMAIN} ;;
-  }
-
 }

@@ -1,12 +1,3 @@
-connection: "@{CONNECTION_NAME}"
-
-# include all the views
-include: "*.view"
-
-include: "//block-zendesk/*.view"
-include: "//block-zendesk/*.dashboard"
-include: "//block-zendesk/*.explore"
-
 datagroup: block_zendesk_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "2 hour"
@@ -15,10 +6,12 @@ datagroup: block_zendesk_datagroup {
 persist_with: block_zendesk_datagroup
 
 # Used exclusively to calculate user response times
-explore: agent {
+explore: agent_config {
   extends: [agent_core]
+  extension: required
 }
 
-explore: ticket {
+explore: ticket_config {
   extends: [ticket_core]
+  extension: required
 }
